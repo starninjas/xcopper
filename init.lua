@@ -56,24 +56,6 @@ stairs.register_stair_outer(
 )
 end
 
--- Make Copper and Bronze have the group "oxidizes"
-
-minetest.override_item("default:bronzeblock", {
-	description = ("Bronze Block"),
-	tiles = {"default_bronze_block.png"},
-	is_ground_content = false,
-	groups = {cracky = 1, level = 2, oxidizes=3},
-	sounds = default.node_sound_metal_defaults(),
-})
-
-minetest.override_item("default:copperblock", {
-	description = ("Copper Block"),
-	tiles = {"default_copper_block.png"},
-	is_ground_content = false,
-	groups = {cracky = 1, level = 2, oxidizes=3},
-	sounds = default.node_sound_metal_defaults(),
-})
-
 --
 -- Oxidation ABM
 --
@@ -86,17 +68,20 @@ local oxide_correspondences = {
 	["stairs:stair_inner_copperblock"] = "stairs:stair_inner_oxidized",
 	["stairs:stair_outer_copperblock"] = "stairs:stair_outer_oxidized",
 	["stairs:stair_bronzeblock"] = "stairs:stair_oxidized",
-	["stairs:slab_bronzelock"] = "stairs:slab_oxidized",
+	["stairs:slab_bronzeblock"] = "stairs:slab_oxidized",
 	["stairs:stair_inner_bronzeblock"] = "stairs:stair_inner_oxidized",
 	["stairs:stair_outer_bronzeblock"] = "stairs:stair_outer_oxidized",
 }
 
 minetest.register_abm({
 	label = "Oxidation",
-	nodenames = {"group:oxidizes"},
+	nodenames = {"default:copperblock", "default:bronzeblock", "stairs:stair_copperblock",
+	"stairs:slab_copperblock", "stairs:stair_inner_copperblock", "stairs:stair_outer_copperblock",
+	"stairs:stair_bronzeblock", "stairs:slab_bronzeblock","stairs:stair_inner_bronzeblock", 
+	"stairs:stair_outer_bronzeblock"},
 	neighbors = {"group:water"},
 	interval = 20,
-	chance = 150,
+	chance = 125,
 	catch_up = false,
 	action = function(pos, node)
 		node.name = oxide_correspondences[node.name]
@@ -114,7 +99,16 @@ minetest.register_craft({
 	type = "shapeless",
 	output = "default:oxidizedblock",
 	recipe = {
-		"group:oxidizes","bucket:bucket_water"
+		"default:copperblock","bucket:bucket_water"
+	},
+	replacements = { {"bucket:bucket_water", "bucket:bucket_empty"} }
+})
+
+minetest.register_craft({
+	type = "shapeless",
+	output = "default:oxidizedblock",
+	recipe = {
+		"default:bronzeblock","bucket:bucket_water"
 	},
 	replacements = { {"bucket:bucket_water", "bucket:bucket_empty"} }
 })

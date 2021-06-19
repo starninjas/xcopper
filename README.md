@@ -1,4 +1,4 @@
-﻿Version 1.0
+﻿Version 1.1
 
 In real life, both copper and bronze will slowly "oxidize" when exposed to oxygen.
 This process is sped up by other substances, among them is water.
