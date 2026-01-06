@@ -97,7 +97,7 @@ if minetest.get_modpath("bucket") then
 
 minetest.register_craft({
 	type = "shapeless",
-	output = "default:oxidizedblock",
+	output = "xcopper:oxidizedblock",
 	recipe = {
 		"default:copperblock","bucket:bucket_water"
 	},
@@ -106,7 +106,7 @@ minetest.register_craft({
 
 minetest.register_craft({
 	type = "shapeless",
-	output = "default:oxidizedblock",
+	output = "xcopper:oxidizedblock",
 	recipe = {
 		"default:bronzeblock","bucket:bucket_water"
 	},
